@@ -2,6 +2,7 @@
 
 var inputs = [""];
 var currentResult = 0;
+var calculationHasFinished = false;
 
 
 var displayField = $('#display');
@@ -42,6 +43,12 @@ function display() {
 for(var i = 0; i < numButtons.length; i++) {
   $('#button' + i)
     .click(function () {
+
+      if(calculationHasFinished === true) {
+        clearEverything();
+        calculationHasFinished = false;
+      }
+
       if(!isNaN(inputs[inputs.length - 1])) {
         inputs[inputs.length - 1] += $(this)
           .val();
@@ -125,6 +132,7 @@ btnEquals.click(function () {
     }
 
     displayField.val(currentResult);
+    calculationHasFinished = true;
 
   }
 
@@ -134,6 +142,11 @@ btnEquals.click(function () {
 
 //Clear Button
 btnClear.click(function () {
+  clearEverything();
+});
+
+
+function clearEverything() {
   inputs = [""];
   display();
-});
+}
