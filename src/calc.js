@@ -1,6 +1,8 @@
 "use strict";
 
 var inputs = [""];
+var currentResult = 0;
+
 
 var displayField = $('#display');
 
@@ -98,27 +100,31 @@ btnDivide.click(function () {
 btnEquals.click(function () {
   console.log(inputs);
 
-  var firstOperand = inputs[0];
-  var operation = inputs[1];
-  var secondOperand = inputs[2];
+  for(var i = 0; i < Math.floor(inputs.length / 2); i++) {
+    var firstOperand = inputs[2 * i];
+    var operation = inputs[2 * i + 1];
+    var secondOperand = inputs[2 * i + 2];
 
-  switch(operation) {
-  case "add":
-    displayField.val(parseFloat(firstOperand) + parseFloat(secondOperand));
-    break;
-  case "subtract":
-    displayField.val(parseFloat(firstOperand) - parseFloat(secondOperand));
-    break;
-  case "multiply":
-    displayField.val(parseFloat(firstOperand) * parseFloat(secondOperand));
-    break;
-  case "divide":
-    displayField.val(parseFloat(firstOperand) / parseFloat(secondOperand));
-    break;
+    if(i === 0) {
+      currentResult = parseFloat(firstOperand);
+    }
 
+    switch(operation) {
+    case "add":
+      currentResult += parseFloat(secondOperand);
+      break;
+    case "subtract":
+      currentResult -= parseFloat(secondOperand);
+      break;
+    case "multiply":
+      currentResult *= parseFloat(secondOperand);
+      break;
+    case "divide":
+      currentResult /= parseFloat(secondOperand);
+      break;
+    }
 
-
-  default:
+    displayField.val(currentResult);
 
   }
 
