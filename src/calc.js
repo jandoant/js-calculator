@@ -43,12 +43,14 @@ for(var i = 0; i < numButtons.length; i++) {
       if(!isNaN(inputs[inputs.length - 1])) {
         inputs[inputs.length - 1] += $(this)
           .val();
-        display();
       }
       else {
         inputs.push($(this)
           .val());
       }
+
+      display();
+
     });
 }
 
@@ -92,14 +94,35 @@ btnDivide.click(function () {
   }
 });
 
-
-
-
-
-
 //Equals Button
 btnEquals.click(function () {
   console.log(inputs);
+
+  var firstOperand = inputs[0];
+  var operation = inputs[1];
+  var secondOperand = inputs[2];
+
+  switch(operation) {
+  case "add":
+    displayField.val(parseFloat(firstOperand) + parseFloat(secondOperand));
+    break;
+  case "subtract":
+    displayField.val(parseFloat(firstOperand) - parseFloat(secondOperand));
+    break;
+  case "multiply":
+    displayField.val(parseFloat(firstOperand) * parseFloat(secondOperand));
+    break;
+  case "divide":
+    displayField.val(parseFloat(firstOperand) / parseFloat(secondOperand));
+    break;
+
+
+
+  default:
+
+  }
+
+
 
 });
 
