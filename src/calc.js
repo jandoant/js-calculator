@@ -44,7 +44,7 @@ for(var i = 0; i < numButtons.length; i++) {
   $('#button' + i)
     .click(function () {
 
-      if(calculationHasFinished === true) {
+      if(calculationHasFinished) {
         clearEverything();
         calculationHasFinished = false;
       }
@@ -65,79 +65,76 @@ for(var i = 0; i < numButtons.length; i++) {
 
 //Add Button
 btnAdd.click(function () {
+
+  calculateInputStream();
+  displayField.val(currentResult);
+
   if(!isNaN(inputs[inputs.length - 1])) {
     inputs.push("add");
   }
   else {
     inputs[inputs.length - 1] = "add";
   }
+
+  calculationHasFinished = false;
+
+
 });
 
 //Subtract Button
 btnSubtract.click(function () {
+
+  calculateInputStream();
+  displayField.val(currentResult);
+
+
   if(!isNaN(inputs[inputs.length - 1])) {
     inputs.push("subtract");
   }
   else {
     inputs[inputs.length - 1] = "subtract";
   }
+
+  calculationHasFinished = false;
 });
 
 //Multiply Button
 btnMultiply.click(function () {
+  calculateInputStream();
+  displayField.val(currentResult);
+
   if(!isNaN(inputs[inputs.length - 1])) {
     inputs.push("multiply");
   }
   else {
     inputs[inputs.length - 1] = "multiply";
   }
+
+  calculationHasFinished = false;
 });
 
 //Divide Button
 btnDivide.click(function () {
+
+  calculateInputStream();
+  displayField.val(currentResult);
+
   if(!isNaN(inputs[inputs.length - 1])) {
     inputs.push("divide");
   }
   else {
     inputs[inputs.length - 1] = "divide";
   }
+
+  calculationHasFinished = false;
 });
 
 //Equals Button
 btnEquals.click(function () {
   console.log(inputs);
-
-  for(var i = 0; i < Math.floor(inputs.length / 2); i++) {
-    var firstOperand = inputs[2 * i];
-    var operation = inputs[2 * i + 1];
-    var secondOperand = inputs[2 * i + 2];
-
-    if(i === 0) {
-      currentResult = parseFloat(firstOperand);
-    }
-
-    switch(operation) {
-    case "add":
-      currentResult += parseFloat(secondOperand);
-      break;
-    case "subtract":
-      currentResult -= parseFloat(secondOperand);
-      break;
-    case "multiply":
-      currentResult *= parseFloat(secondOperand);
-      break;
-    case "divide":
-      currentResult /= parseFloat(secondOperand);
-      break;
-    }
-
-    displayField.val(currentResult);
-    calculationHasFinished = true;
-
-  }
-
-
-
+  calculateInputStream();
+  displayField.val(currentResult);
+  calculationHasFinished = true;
 });
 
 //Clear Button
@@ -148,5 +145,39 @@ btnClear.click(function () {
 
 function clearEverything() {
   inputs = [""];
+  currentResult = 0;
   display();
+}
+
+function calculateInputStream() {
+
+  if(inputs.length < 3) {
+    currentResult = inputs[0];
+  }
+  else {
+    for(var i = 0; i < Math.floor(inputs.length / 2); i++) {
+      var firstOperand = inputs[2 * i];
+      var operation = inputs[2 * i + 1];
+      var secondOperand = inputs[2 * i + 2];
+
+      if(i === 0) {
+        currentResult = parseFloat(firstOperand);
+      }
+
+      switch(operation) {
+      case "add":
+        currentResult += parseFloat(secondOperand);
+        break;
+      case "subtract":
+        currentResult -= parseFloat(secondOperand);
+        break;
+      case "multiply":
+        currentResult *= parseFloat(secondOperand);
+        break;
+      case "divide":
+        currentResult /= parseFloat(secondOperand);
+        break;
+      }
+    }
+  }
 }
