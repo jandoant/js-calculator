@@ -45,3 +45,9 @@ for(var i = 0; i < numButtons.length; i++) {
       display();
     });
 }
+
+//functionality of clear button
+btnClear.click(function () {
+  operands = [""];
+  display();
+});
