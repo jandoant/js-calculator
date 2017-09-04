@@ -1,6 +1,6 @@
 "use strict";
 
-var operands = [""];
+var inputs = [""];
 
 var displayField = $('#display');
 
@@ -22,32 +22,89 @@ var numButtons = [
 
 //Operations
 var btnAdd = $('#addButton');
-var btnAdd = $('#subtractButton');
-var btnAdd = $('#multiplyButton');
-var btnAdd = $('#divideButton');
+var btnSubtract = $('#subtractButton');
+var btnMultiply = $('#multiplyButton');
+var btnDivide = $('#divideButton');
 
 //Calculation
 var btnClear = $('#clearButton');
 var btnEquals = $('#equalsButton');
 
 function display() {
-  //always show last field of operands array
+  //always show last field of inputs array
   $('#display')
-    .val(operands[operands.length - 1]);
+    .val(inputs[inputs.length - 1]);
 }
 
 //give each number button a click function
 for(var i = 0; i < numButtons.length; i++) {
   $('#button' + i)
     .click(function () {
-      operands[operands.length - 1] += $(this)
-        .val();
-      display();
+      if(!isNaN(inputs[inputs.length - 1])) {
+        inputs[inputs.length - 1] += $(this)
+          .val();
+        display();
+      }
+      else {
+        inputs.push($(this)
+          .val());
+      }
     });
 }
 
-//functionality of clear button
+//Add Button
+btnAdd.click(function () {
+  if(!isNaN(inputs[inputs.length - 1])) {
+    inputs.push("add");
+  }
+  else {
+    inputs[inputs.length - 1] = "add";
+  }
+});
+
+//Subtract Button
+btnSubtract.click(function () {
+  if(!isNaN(inputs[inputs.length - 1])) {
+    inputs.push("subtract");
+  }
+  else {
+    inputs[inputs.length - 1] = "subtract";
+  }
+});
+
+//Multiply Button
+btnMultiply.click(function () {
+  if(!isNaN(inputs[inputs.length - 1])) {
+    inputs.push("multiply");
+  }
+  else {
+    inputs[inputs.length - 1] = "multiply";
+  }
+});
+
+//Divide Button
+btnDivide.click(function () {
+  if(!isNaN(inputs[inputs.length - 1])) {
+    inputs.push("divide");
+  }
+  else {
+    inputs[inputs.length - 1] = "divide";
+  }
+});
+
+
+
+
+
+
+//Equals Button
+btnEquals.click(function () {
+  console.log(inputs);
+
+});
+
+//Clear Button
 btnClear.click(function () {
-  operands = [""];
+  inputs = [""];
   display();
 });
