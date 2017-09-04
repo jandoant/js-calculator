@@ -4,6 +4,8 @@ var inputs = [""];
 var currentResult = 0;
 var calculationHasFinished = false;
 
+var equalHits = 0;
+
 
 var displayField = $('#display');
 
@@ -44,6 +46,8 @@ for(var i = 0; i < numButtons.length; i++) {
   $('#button' + i)
     .click(function () {
 
+      equalHits = 0;
+
       if(calculationHasFinished) {
         clearEverything();
         calculationHasFinished = false;
@@ -65,7 +69,7 @@ for(var i = 0; i < numButtons.length; i++) {
 
 //Add Button
 btnAdd.click(function () {
-
+  equalHits = 0;
   calculateInputStream();
   displayField.val(currentResult);
 
@@ -83,7 +87,7 @@ btnAdd.click(function () {
 
 //Subtract Button
 btnSubtract.click(function () {
-
+  equalHits = 0;
   calculateInputStream();
   displayField.val(currentResult);
 
@@ -100,6 +104,7 @@ btnSubtract.click(function () {
 
 //Multiply Button
 btnMultiply.click(function () {
+  equalHits = 0;
   calculateInputStream();
   displayField.val(currentResult);
 
@@ -115,7 +120,7 @@ btnMultiply.click(function () {
 
 //Divide Button
 btnDivide.click(function () {
-
+  equalHits = 0;
   calculateInputStream();
   displayField.val(currentResult);
 
@@ -131,6 +136,14 @@ btnDivide.click(function () {
 
 //Equals Button
 btnEquals.click(function () {
+
+  equalHits++;
+
+  if(equalHits > 1) {
+    inputs.push(inputs[inputs.length - 2]);
+    inputs.push(inputs[inputs.length - 2]);
+  }
+
   console.log(inputs);
   calculateInputStream();
   displayField.val(currentResult);
@@ -146,6 +159,7 @@ btnClear.click(function () {
 function clearEverything() {
   inputs = [""];
   currentResult = 0;
+  equalHits = 0;
   display();
 }
 
